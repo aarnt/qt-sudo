@@ -90,10 +90,10 @@ isEmpty(PREFIX) {
 #endif
 
 isEmpty(LIBDIR) {
-    LIBDIR = $$PREFIX/lib
+    LIBDIR = $$PREFIX/bin
 }
 
-target.path = $$LIBDIR/qt-sudo
+target.path = $$LIBDIR
 sources.files = $$SOURCES $$HEADERS *.pro
 sources.path = .
 INSTALLS += target
