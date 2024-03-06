@@ -7,7 +7,9 @@ It needs doas or sudo tool to work.
 Steps to build:
 
 ```
-$ /usr/local/lib/qt5/bin/qmake
+$ git clone https://github.com/aarnt/qt-sudo
+$ cd qt-sudo 
+$ qmake-qt5
 $ make
 # make install
 ```
