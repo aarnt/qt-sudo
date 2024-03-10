@@ -79,13 +79,13 @@ TRANSLATIONS += translations/lxqt-sudo_arn.ts \
 
 # install
 
-#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
-isEmpty(PREFIX) {
-    PREFIX = /usr/local
-}
-#elif defined(__linux__)
+#if defined(Q_OS_LINUX)
 isEmpty(PREFIX) {
     PREFIX = /usr
+}
+#else
+isEmpty(PREFIX) {
+    PREFIX = /usr/local
 }
 #endif
 
