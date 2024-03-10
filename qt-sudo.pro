@@ -78,16 +78,9 @@ TRANSLATIONS += translations/lxqt-sudo_arn.ts \
                 translations/lxqt-sudo_zh_TW.ts
 
 # install
-
-#if defined(Q_OS_LINUX)
-isEmpty(PREFIX) {
-    PREFIX = /usr
-}
-#else
 isEmpty(PREFIX) {
     PREFIX = /usr/local
 }
-#endif
 
 isEmpty(LIBDIR) {
     LIBDIR = $$PREFIX/bin
