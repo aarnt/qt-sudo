@@ -49,7 +49,7 @@
 #include <libutil.h>
 #include <errno.h>
 #include <termios.h>
-#elif defined(__OpenBSD__)
+#elif defined(__OpenBSD__) || defined(__NetBSD__)
 #include <util.h>
 #include <errno.h>
 #include <termios.h>
@@ -75,7 +75,7 @@ const QString su_prog{QStringLiteral("su")};
 const QString sudo_prog{QStringLiteral("sudo")};
 const QString doas_prog{QStringLiteral("doas")};
 
-#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
+#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
     const QString pwd_prompt_end_c_locale{QStringLiteral(":")};
 #endif
 
@@ -256,8 +256,8 @@ QString Sudo::backendName (backend_t backEnd)
   switch (backEnd) {
   case BACK_SU   : rv = su_prog;   break;
   case BACK_SUDO :
-      if ((QFile::exists(QStringLiteral("/usr/local/bin/doas")) || QFile::exists(QStringLiteral("/usr/bin/doas"))) &&
-          (QFile::exists(QStringLiteral("/usr/local/etc/doas.conf")) || QFile::exists(QStringLiteral("/etc/doas.conf"))))
+      if ((QFile::exists(QStringLiteral("/usr/local/bin/doas")) || QFile::exists(QStringLiteral("/usr/bin/doas")) || QFile::exists(QStringLiteral("/usr/pkg/bin/doas"))) &&
+          (QFile::exists(QStringLiteral("/usr/local/etc/doas.conf")) || QFile::exists(QStringLiteral("/etc/doas.conf")) || QFile::exists(QStringLiteral("/usr/pkg/etc/doas.conf"))))
       rv = doas_prog;
     else rv = sudo_prog;
     break;
@@ -271,7 +271,7 @@ QString Sudo::backendName (backend_t backEnd)
 void Sudo::child()
 {
   int params_cnt = 3 //1. su/sudo & "shell command" & last nullptr
-#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
+#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
         + (BACK_SU == mBackend ? 1 : 3); //-c for su | -E /bin/sh -c for sudo
 #else
       + (BACK_SU == mBackend ? 3 : 3);
@@ -308,7 +308,7 @@ void Sudo::child()
   // locale and then set the locale back for the command
  
   std::string command;
- #if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
+ #if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
     char const * const env_lc_all = getenv("LC_ALL");
     if (env_lc_all == nullptr)
     {
@@ -408,7 +408,7 @@ int Sudo::parent()
       }
     } else
     {
-#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
+#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
      if( line.endsWith(pwd_prompt_end_c_locale)  || line.endsWith(pwd_prompt_end))
 #else
      if (line.endsWith(pwd_prompt_end))
