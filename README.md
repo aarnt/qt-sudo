@@ -9,7 +9,7 @@ Steps to build:
 ```
 $ git clone https://github.com/aarnt/qt-sudo
 $ cd qt-sudo 
-$ qmake-qt5
+$ qmake6
 $ make
 # make install
 ```
