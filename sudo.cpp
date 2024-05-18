@@ -226,7 +226,7 @@ int Sudo::main()
 
   mDlg.reset(new PasswordDialog{squashedArgs(/*userFriendly = */ true), backendName()});
   mDlg->setModal(true);
-  qApp->setActiveWindow(mDlg.data());
+  mDlg->activateWindow();
 
   if (-1 == mChildPid)
     QMessageBox(QMessageBox::Critical, mDlg->windowTitle()

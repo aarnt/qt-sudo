@@ -45,7 +45,10 @@ int main(int argc, char **argv)
   //ArgumentList *argList = new ArgumentList(argc, argv);
   QApplication app(argc, argv, true);
   app.setQuitOnLastWindowClosed(false);
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+#endif
 
   QTranslator translator;
   // look up e.g. :/translations/myapp_de.qm
