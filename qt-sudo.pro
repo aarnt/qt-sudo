@@ -59,10 +59,12 @@ TRANSLATIONS += translations/lxqt-sudo_arn.ts \
                 translations/lxqt-sudo_it.ts \
                 translations/lxqt-sudo_ja.ts \
                 translations/lxqt-sudo_ko.ts \
+                translations/lxqt-sudo_lg.ts \
                 translations/lxqt-sudo_lt.ts \
                 translations/lxqt-sudo_nb_NO.ts \
                 translations/lxqt-sudo_nl.ts \
                 translations/lxqt-sudo_oc.ts \
+                translations/lxqt-sudo_pa.ts \
                 translations/lxqt-sudo_pl.ts \
                 translations/lxqt-sudo_pt_BR.ts \
                 translations/lxqt-sudo_pt.ts \

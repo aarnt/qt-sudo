@@ -28,7 +28,6 @@
 #include "passworddialog.h"
 #include "ui_passworddialog.h"
 
-#include <QFile>
 #include <QIcon>
 #include <QClipboard>
 #include <QToolButton>
@@ -41,7 +40,6 @@ PasswordDialog::PasswordDialog(const QString & cmd
   , ui(new Ui::PasswordDialog)
 {
   ui->setupUi(this);
-
   ui->commandL->setText(cmd);
 
   connect(ui->commandCopyBtn, &QToolButton::clicked, [cmd]() {

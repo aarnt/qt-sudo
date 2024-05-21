@@ -30,9 +30,10 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 /*
- * This code is adapted from LXQt version 0.14.1
+ * This code is adapted from lxqt-sudo project (https://github.com/lxqt/lxqt-sudo)
  *
- * It is not using LXQt libs and is intended to act as the *only* sudo tool supported in Octopi
+ * It is not using LXQt libs and
+ * is intended to act as the *ONLY* sudo/doas tool supported by Baiacu, Octopi, OctoPkg, OctoPkgin and QTGZManager tools
  */
 
 #include "sudo.h"
