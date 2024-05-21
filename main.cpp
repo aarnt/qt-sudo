@@ -33,7 +33,7 @@
  * This code is adapted from lxqt-sudo project (https://github.com/lxqt/lxqt-sudo)
  *
  * It is not using LXQt libs and
- * is intended to act as the *ONLY* sudo/doas tool supported by Baiacu, Octopi, OctoPkg, OctoPkgin and QTGZManager tools
+ * is intended to act as the *ONLY* sudo/doas tool supported by Baiacu, Octopi, OctoPkg, OctoPkgin, OctoXBPS and QTGZManager tools
  */
 
 #include "sudo.h"
