@@ -67,7 +67,7 @@
 namespace
 {
 const QString app_master{QStringLiteral("qt-sudo")};
-const QString app_version{QStringLiteral("2.0.0")};
+const QString app_version{QStringLiteral("2.0.1")};
 const QString app_lxsu{QStringLiteral("su")};
 const QString app_lxsudo{QStringLiteral("doas")};
 
@@ -337,7 +337,7 @@ void Sudo::child()
 
   *param_arg = nullptr;
 
-  setenv("LC_ALL", "C", 1);
+  setenv("LC_ALL", "C.UTF-8", 1);
 
   setsid(); //session leader
   execvp(params[0], const_cast<char **>(params.get()));
