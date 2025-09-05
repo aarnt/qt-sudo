@@ -37,8 +37,9 @@ SOURCES += main.cpp \
 
 FORMS += passworddialog.ui
 
-TRANSLATIONS += translations/lxqt-sudo_arn.ts \
+TRANSLATIONS += translations/lxqt-sudo.ts \
                 translations/lxqt-sudo_ar.ts \
+                translations/lxqt-sudo_arn.ts \
                 translations/lxqt-sudo_ast.ts \
                 translations/lxqt-sudo_bg.ts \
                 translations/lxqt-sudo_ca.ts \
@@ -47,6 +48,7 @@ TRANSLATIONS += translations/lxqt-sudo_arn.ts \
                 translations/lxqt-sudo_da.ts \
                 translations/lxqt-sudo_de.ts \
                 translations/lxqt-sudo_el.ts \
+                translations/lxqt-sudo_en_GB.ts \
                 translations/lxqt-sudo_es.ts \
                 translations/lxqt-sudo_et.ts \
                 translations/lxqt-sudo_fi.ts \
@@ -58,6 +60,8 @@ TRANSLATIONS += translations/lxqt-sudo_arn.ts \
                 translations/lxqt-sudo_id.ts \
                 translations/lxqt-sudo_it.ts \
                 translations/lxqt-sudo_ja.ts \
+                translations/lxqt-sudo_ka.ts \
+                translations/lxqt-sudo_kab.ts \
                 translations/lxqt-sudo_ko.ts \
                 translations/lxqt-sudo_lg.ts \
                 translations/lxqt-sudo_lt.ts \
@@ -66,14 +70,13 @@ TRANSLATIONS += translations/lxqt-sudo_arn.ts \
                 translations/lxqt-sudo_oc.ts \
                 translations/lxqt-sudo_pa.ts \
                 translations/lxqt-sudo_pl.ts \
-                translations/lxqt-sudo_pt_BR.ts \
                 translations/lxqt-sudo_pt.ts \
+                translations/lxqt-sudo_pt_BR.ts \
                 translations/lxqt-sudo_ru.ts \
                 translations/lxqt-sudo_si.ts \
                 translations/lxqt-sudo_sk.ts \
                 translations/lxqt-sudo_sl.ts \
-                translations/lxqt-sudo_tr.ts \
-                translations/lxqt-sudo.ts \
+                translations/lxqt-sudo_tr.ts \                
                 translations/lxqt-sudo_uk.ts \
                 translations/lxqt-sudo_vi.ts \
                 translations/lxqt-sudo_zh_CN.ts \

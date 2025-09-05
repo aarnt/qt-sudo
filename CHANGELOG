@@ -1,3 +1,7 @@
+v2.2.0
+  Backport some code changes from lxqt-sudo 2.2.0.
+  Backport all translation files from lxqt-sudo 2.2.0.  
+
 v2.0.1 (2024/05/24)
   Added wolfseifert's patch to sudo.cpp.
 

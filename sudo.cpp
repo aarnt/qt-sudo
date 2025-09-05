@@ -67,7 +67,7 @@
 namespace
 {
 const QString app_master{QStringLiteral("qt-sudo")};
-const QString app_version{QStringLiteral("2.0.1")};
+const QString app_version{QStringLiteral("2.2.0")};
 const QString app_lxsu{QStringLiteral("su")};
 const QString app_lxsudo{QStringLiteral("doas")};
 
@@ -108,12 +108,13 @@ void version()
       << QObject::tr("%1 version %2\n").arg(app_master).arg(app_version);
 }
 
+
 //Note: array must be sorted to allow usage of binary search
 static constexpr char const * const ALLOWED_VARS[] = {
-  "DISPLAY"
-  , "LANG", "LANGUAGE", "LC_ADDRESS", "LC_ALL", "LC_COLLATE", "LC_CTYPE", "LC_IDENTIFICATION", "LC_MEASUREMENT"
-  , "LC_MESSAGES", "LC_MONETARY", "LC_NAME", "LC_NUMERIC", "LC_PAPER", "LC_TELEPHONE", "LC_TIME"
-  , "PATH", "QT_PLATFORM_PLUGIN", "QT_QPA_PLATFORMTHEME", "TERM", "WAYLAND_DISPLAY", "XAUTHLOCALHOSTNAME", "XAUTHORITY"
+    "DISPLAY", "GDK_DPI_SCALE", "GDK_SCALE", "GTK_CSD", "GTK_OVERLAY_SCROLLING"
+    , "LANG", "LANGUAGE", "LC_ADDRESS", "LC_ALL", "LC_COLLATE", "LC_CTYPE", "LC_IDENTIFICATION", "LC_MEASUREMENT"
+    , "LC_MESSAGES", "LC_MONETARY", "LC_NAME", "LC_NUMERIC", "LC_PAPER", "LC_TELEPHONE", "LC_TIME"
+    , "PATH", "QT_PLATFORM_PLUGIN", "QT_QPA_PLATFORMTHEME", "QT_SCALE_FACTOR", "TERM", "WAYLAND_DISPLAY", "XAUTHLOCALHOSTNAME", "XAUTHORITY"
 };
 static constexpr char const * const * const ALLOWED_END = ALLOWED_VARS + sizeof (ALLOWED_VARS) / sizeof (ALLOWED_VARS[0]);
 struct assert_helper
@@ -125,6 +126,7 @@ struct assert_helper
   }
 };
 assert_helper h;
+
 
 inline std::string env_workarounds()
 {
@@ -173,6 +175,8 @@ Sudo::Sudo()
     mBackend = BACK_SU;
   else if (app_lxsudo == cmd || app_master == cmd)
     mBackend = BACK_SUDO;
+
+  mRet = mPwdFd = mChildPid = 0;
 }
 
 Sudo::~Sudo()
@@ -277,6 +281,7 @@ void Sudo::child()
 #else
       + (BACK_SU == mBackend ? 3 : 3);
 #endif
+
   std::unique_ptr<char const *[]> params{new char const *[params_cnt]};
   const char ** param_arg = params.get() + 1;
 
@@ -307,14 +312,15 @@ void Sudo::child()
 
   // Note: we force the su/sudo to communicate with us in the simplest
   // locale and then set the locale back for the command
- 
+
+  char const * const env_lc_all = getenv("LC_ALL");
   std::string command;
- #if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
-    char const * const env_lc_all = getenv("LC_ALL");
+ //#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
     if (env_lc_all == nullptr)
     {
-        command = "unset LC_ALL;";
-    } else
+        command = "unset LC_ALL; ";
+    }
+    else
     {
         // Note: we need to check if someone is not trying to inject commands
         // for privileged execution via the LC_ALL
@@ -329,15 +335,15 @@ void Sudo::child()
     }
     command += "exec ";
     command += squashedArgs().toLocal8Bit().data();
-#else
-    command = squashedArgs().toLocal8Bit().data();
-#endif
+//#else
+
+//#endif
 
  *(param_arg++) = command.c_str();
 
   *param_arg = nullptr;
 
-  setenv("LC_ALL", "C.UTF-8", 1);
+  setenv("LC_ALL", "C", 1);
 
   setsid(); //session leader
   execvp(params[0], const_cast<char **>(params.get()));
@@ -478,14 +484,15 @@ int Sudo::parent()
   QObject::connect(stdin_watcher.data(), &QSocketNotifier::activated, writer);
 
   std::unique_ptr<std::thread> child_waiter;
+
   QTimer::singleShot(0, [&child_waiter, this] {
     child_waiter.reset(new std::thread{[this] {
-                                         int res, status;
-                                         res = waitpid(mChildPid, &status, 0);
-                                         mRet = (mChildPid == res && WIFEXITED(status)) ? WEXITSTATUS(status) : 1;
-                                         qApp->quit();
-                                       }
-                       });
+          int res, status;
+          res = waitpid(mChildPid, &status, 0);
+          mRet = (mChildPid == res && WIFEXITED(status)) ? WEXITSTATUS(status) : 1;
+          qApp->quit();
+        }
+    });
   });
 
   qApp->exec();
