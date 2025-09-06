@@ -489,6 +489,12 @@ int Sudo::parent()
     child_waiter.reset(new std::thread{[this] {
           int res, status;
           res = waitpid(mChildPid, &status, 0);
+
+#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
+          QTextStream s;
+          s.flush();
+#endif
+          
           mRet = (mChildPid == res && WIFEXITED(status)) ? WEXITSTATUS(status) : 1;
           qApp->quit();
         }

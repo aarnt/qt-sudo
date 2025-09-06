@@ -1,4 +1,5 @@
 v2.2.0
+  BugFix: When compiled with Qt6, qt-sudo hanged on command execution.
   Backport some code changes from lxqt-sudo 2.2.0.
   Backport all translation files from lxqt-sudo 2.2.0.  
 
