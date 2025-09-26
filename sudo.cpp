@@ -67,7 +67,7 @@
 namespace
 {
 const QString app_master{QStringLiteral("qt-sudo")};
-const QString app_version{QStringLiteral("2.2.0")};
+const QString app_version{QStringLiteral("2.2.1")};
 const QString app_lxsu{QStringLiteral("su")};
 const QString app_lxsudo{QStringLiteral("doas")};
 
@@ -491,8 +491,9 @@ int Sudo::parent()
           res = waitpid(mChildPid, &status, 0);
 
 #if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
-          QTextStream s;
-          s.flush();
+	  QTextStream sout{stdout, QIODevice::WriteOnly};
+	  sout << QStringLiteral("");
+          sout.flush();
 #endif
           
           mRet = (mChildPid == res && WIFEXITED(status)) ? WEXITSTATUS(status) : 1;
