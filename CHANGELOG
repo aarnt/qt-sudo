@@ -1,6 +1,7 @@
 v2.3.0
   BugFix: When compiled with Qt6, qt-sudo hanged on command execution in OpenBSD.
-  Add a lock icon for the UI.
+  Added a lock icon for the UI.
+  Added a PKGBUILD for Arch Linux based installs.
   Backport all translation files from lxqt-sudo 2.3.0.
 
 v2.2.0 (2025/09/14)
