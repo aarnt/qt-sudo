@@ -67,7 +67,7 @@
 namespace
 {
 const QString app_master{QStringLiteral("qt-sudo")};
-const QString app_version{QStringLiteral("2.2.1")};
+const QString app_version{QStringLiteral("2.3.0")};
 const QString app_lxsu{QStringLiteral("su")};
 const QString app_lxsudo{QStringLiteral("doas")};
 

@@ -51,6 +51,7 @@ TRANSLATIONS += translations/lxqt-sudo.ts \
                 translations/lxqt-sudo_en_GB.ts \
                 translations/lxqt-sudo_es.ts \
                 translations/lxqt-sudo_et.ts \
+                translations/lxqt-sudo_eu.ts \
                 translations/lxqt-sudo_fi.ts \
                 translations/lxqt-sudo_fr.ts \
                 translations/lxqt-sudo_gl.ts \
@@ -76,6 +77,7 @@ TRANSLATIONS += translations/lxqt-sudo.ts \
                 translations/lxqt-sudo_si.ts \
                 translations/lxqt-sudo_sk.ts \
                 translations/lxqt-sudo_sl.ts \
+                translations/lxqt-sudo_sv.ts \
                 translations/lxqt-sudo_tr.ts \                
                 translations/lxqt-sudo_uk.ts \
                 translations/lxqt-sudo_vi.ts \
@@ -95,3 +97,5 @@ target.path = $$LIBDIR
 sources.files = $$SOURCES $$HEADERS *.pro
 sources.path = .
 INSTALLS += target
+
+RESOURCES += images.qrc

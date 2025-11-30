@@ -38,6 +38,7 @@
 
 #include "sudo.h"
 
+#include <QtGui>
 #include <QApplication>
 #include <QTranslator>
 
@@ -55,6 +56,8 @@ int main(int argc, char **argv)
   // look up e.g. :/translations/myapp_de.qm
   if (translator.load(QLocale(), QLatin1String("lxqt-sudo"), QLatin1String("_"), QLatin1String(":/translations")))
     app.installTranslator(&translator);
+
+  QResource::registerResource(QStringLiteral("./images.qrc"));
 
   Sudo s;
   return s.main();
