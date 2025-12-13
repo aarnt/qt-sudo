@@ -1,6 +1,7 @@
-v2.3.0 (2025/12/12)
+v2.3.0 (2025/12/13)
   BugFix: When compiled with Qt6, qt-sudo hanged on command execution in OpenBSD.
-  BugFix: Force Windows style if running in a Plasma session (thanks to Fiiti).
+  BugFix: Force Windows style if running in a Plasma session (thanks to Fiitii, 
+    StefanH1303 and PsychoDad9999).
   Added a lock icon for the UI.
   Added a PKGBUILD for Arch Linux based installs.  
   Backport all translation files from lxqt-sudo 2.3.0.
