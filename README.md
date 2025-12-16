@@ -4,7 +4,7 @@ This is a clone of LXQt sudo tool (without LXQt libs). It is the *ONLY* privileg
 
 It needs doas or sudo tool to work.
 
-*Please*, use at least version 2.3.0 if you run a Plasma session.
+**Please**, use at least version 2.3.0 if you run a Plasma session.
 
 Steps to build:
 
