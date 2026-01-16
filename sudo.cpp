@@ -376,15 +376,15 @@ int Sudo::parent()
     return 1;
   }
 
-  FILE * pwd_f = fdopen(mPwdFd, "r+");
-  if (nullptr == pwd_f)
+  QFile pty;
+  if (!pty.open(mPwdFd, QIODevice::ReadWrite, QFileDevice::AutoCloseHandle))
   {
     QMessageBox(QMessageBox::Critical, mDlg->windowTitle()
-                , tr("Syscall error, failed to fdopen pty: %1").arg(QString::fromUtf8(strerror(errno))), QMessageBox::Ok).exec();
+                , tr("Failed to open pty file descriptor: %1").arg(QString::fromUtf8(strerror(errno))), QMessageBox::Ok).exec();
     return 1;
   }
 
-  QTextStream child_str{pwd_f};
+  QTextStream child_str{&pty};
   // pseudoterminal echoes everything written into it's input; we don't want duplicating input
   int inhibit_count = 0;
 
@@ -499,19 +499,16 @@ int Sudo::parent()
 #endif
           
           mRet = (mChildPid == res && WIFEXITED(status)) ? WEXITSTATUS(status) : 1;
-          qApp->quit();
+          QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection);
         }
     });
   });
-
+  
   qApp->exec();
   child_waiter->join();
 
   // try to read the last line(s)
   reader();
-
-  fclose(pwd_f);
-  close(mPwdFd);
 
   return mRet;
 }
