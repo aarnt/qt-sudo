@@ -1,3 +1,8 @@
+v2.3.1
+  BugFix: intermittent crashes reported in app close, typically manifested as glibc 
+    errors such as: corrupted double-linked list and free(): chunks in smallbin 
+    corrupted (thanks to marcotuliomatos).
+
 v2.3.0 (2025/12/12)
   BugFix: When compiled with Qt6, qt-sudo hanged on command execution in OpenBSD.
   BugFix: Force Windows style if running in a Plasma session (thanks to Fiiti).
