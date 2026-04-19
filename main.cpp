@@ -42,28 +42,10 @@
 #include <QApplication>
 #include <QTranslator>
 
-bool isPlasmaDesktop() {
-  QString desktopSession = QString::fromUtf8(qgetenv("DESKTOP_SESSION"));
-
-  if (desktopSession.contains(QStringLiteral("plasma"), Qt::CaseInsensitive)) {
-    return true;
-  }
-
-  return false;
-}
-
 int main(int argc, char **argv)
 {
-  // WORKAROUND: Unset platform theme to prevent crash on exit (double free/corruption)
-  if (isPlasmaDesktop())
-    qunsetenv("QT_QPA_PLATFORMTHEME");
-
   //ArgumentList *argList = new ArgumentList(argc, argv);
   QApplication app(argc, argv, true);
-
-  // WORKAROUND: Force a stable style.
-  if (isPlasmaDesktop())
-    app.setStyle(QStringLiteral("windows"));
 
   app.setQuitOnLastWindowClosed(false);
 
