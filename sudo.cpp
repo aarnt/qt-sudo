@@ -67,7 +67,7 @@
 namespace
 {
 const QString app_master{QStringLiteral("qt-sudo")};
-const QString app_version{QStringLiteral("2.3.1")};
+const QString app_version{QStringLiteral("2.4.0")};
 const QString app_lxsu{QStringLiteral("su")};
 const QString app_lxsudo{QStringLiteral("doas")};
 
@@ -282,10 +282,9 @@ void Sudo::child()
       + (BACK_SU == mBackend ? 3 : 3);
 #endif
 
-  std::unique_ptr<char const *[]> params{new char const *[params_cnt]};
+  auto params = std::make_unique<char const *[]>(params_cnt);
   const char ** param_arg = params.get() + 1;
-
-  std::string program = backendName().toLocal8Bit().data();
+  const std::string & program = backendName().toLocal8Bit().data();
 
   std::string preserve_env_param;
   switch (mBackend)

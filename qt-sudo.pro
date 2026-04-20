@@ -63,6 +63,7 @@ TRANSLATIONS += translations/lxqt-sudo.ts \
                 translations/lxqt-sudo_ja.ts \
                 translations/lxqt-sudo_ka.ts \
                 translations/lxqt-sudo_kab.ts \
+                translations/lxqt-sudo_kk.ts \
                 translations/lxqt-sudo_ko.ts \
                 translations/lxqt-sudo_lg.ts \
                 translations/lxqt-sudo_lt.ts \
