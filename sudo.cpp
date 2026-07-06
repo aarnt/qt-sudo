@@ -67,7 +67,7 @@
 namespace
 {
 const QString app_master{QStringLiteral("qt-sudo")};
-const QString app_version{QStringLiteral("2.4.0")};
+const QString app_version{QStringLiteral("2.4.1")};
 const QString app_lxsu{QStringLiteral("su")};
 const QString app_lxsudo{QStringLiteral("doas")};
 
@@ -187,8 +187,62 @@ int Sudo::main()
 {
   if (0 < mArgs.size())
   {
+    for (int i = 0; i < mArgs.size(); )
+    {
+      const QString arg = mArgs[i];
+
+      if (arg == QLatin1String("--dark"))
+      {
+        QFile file(QStringLiteral(":/dark.qss"));
+        if (file.open(QFile::ReadOnly | QFile::Text))
+        {
+          qApp->setStyleSheet(QLatin1String(file.readAll()));
+        }
+
+        mArgs.removeAt(i);
+        continue;
+      }
+
+      if (arg == QLatin1String("-h") || arg == QLatin1String("--help"))
+      {
+        usage();
+        return 0;
+      }
+
+      if (arg == QLatin1String("-v") || arg == QLatin1String("--version"))
+      {
+        version();
+        return 0;
+      }
+
+      if (arg == QLatin1String("-s") || arg == QLatin1String("--su"))
+      {
+        mBackend = BACK_SU;
+        mArgs.removeAt(i);
+        continue;
+      }
+
+      if (arg == QLatin1String("-d") || arg == QLatin1String("--sudo"))
+      {
+        mBackend = BACK_SUDO;
+        mArgs.removeAt(i);
+        continue;
+      }
+
+      ++i;
+    }
+  }
     //simple option check
-    QString const & arg1 = mArgs[0];
+    /*QString const & arg1 = mArgs[0];
+
+    if (QLatin1String("--dark") == arg1)
+    {
+      mArgs.removeAt(0);
+      QFile file(QStringLiteral(":/resources/dark.qss"));
+      if (file.open(QFile::ReadOnly | QFile::Text)) {
+        qApp->setStyleSheet(QLatin1String(file.readAll()));
+      }
+    }
     if (QLatin1String("-h") == arg1 || QLatin1String("--help") == arg1)
     {
       usage();
@@ -206,7 +260,7 @@ int Sudo::main()
       mBackend = BACK_SUDO;
       mArgs.removeAt(0);
     }
-  }
+  }*/
   //any other arguments we simply forward to su/sudo
 
   if (1 > mArgs.size())
